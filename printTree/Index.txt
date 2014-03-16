@@ -1,0 +1,4 @@
+Algorithms include:
+	1. Print tree paths recursively
+	2. Print tree paths iteratively
+	3. Print tree by level recursively

@@ -17,8 +17,9 @@
 *.lob
 
 # VC++ files
-debug/*
-release/*
-ipch/*
+Debug/
+Release/
+ipch/
 *.user
-*.sdf
+*.*sdf
+*.suo
