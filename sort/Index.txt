@@ -1,3 +1,4 @@
 Algorithms include:
 	1. Sort stack with quick sort
 	2. Remove duplicate numbers
+	3. Inverse pair counting
