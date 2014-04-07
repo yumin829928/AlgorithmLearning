@@ -2,8 +2,9 @@
 //
 
 #include "stdafx.h"
-#include <iostream>
 #include <stack>
+#include "MergeSort.h"
+
 using namespace std;
 
 stack<int> revertStack(stack<int> &s) {
@@ -105,6 +106,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	stackSortTest();
 
 	duplicateNumbersTest();
+
+	MergeSort merge_sort;
+	merge_sort.test();
 
 	return 0;
 }
