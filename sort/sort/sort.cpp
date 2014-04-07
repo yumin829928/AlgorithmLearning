@@ -51,8 +51,7 @@ stack<int> stackSort(stack<int> &s) {
 	return less;
 }
 
-int _tmain(int argc, _TCHAR* argv[])
-{
+void stackSortTest() {
 	stack<int> s;
 	s.push(4);
 	s.push(2);
@@ -70,6 +69,42 @@ int _tmain(int argc, _TCHAR* argv[])
 		s.pop();
 	}
 	cout << endl;
+}
+
+void swapInArray(int *a, int i, int j) {
+	int tmp = a[i];
+	a[i] = a[j];
+	a[j] = tmp;
+}
+
+void duplicateNumbers(int *a, int size, int max_val) {
+	if (a == NULL || size <= 0 || size < max_val) {
+		return;
+	}
+
+	for (int i = 0; i < size; ++i) {
+		while (a[i] != i+1 && a[i] != a[a[i]-1]) {
+			swapInArray(a, i, a[i]-1);
+		}
+	}
+
+	cout << "The duplicate values in array are: ";
+	for (int i = max_val; i < size; ++i) {
+		cout << a[i] << " ";
+	}
+	cout << endl;
+}
+
+void duplicateNumbersTest() {
+	int a[] = {7, 1, 2, 3, 3, 1, 3, 6, 7, 6};
+	duplicateNumbers(a, sizeof(a)/sizeof(int), 7);
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	stackSortTest();
+
+	duplicateNumbersTest();
 
 	return 0;
 }
