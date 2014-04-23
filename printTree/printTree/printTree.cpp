@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <set>
 using namespace std;
 
 struct TreeNode {
@@ -105,6 +106,23 @@ void printTreeByLevel(TreeNode *root) {
 	}
 }
 
+TreeNode* getSubTree(TreeNode *root, set<int> &nums) {
+	if (root == NULL || nums.empty()) {
+		return NULL;
+	}
+
+	TreeNode *left = getSubTree(root->left, nums);
+	TreeNode *right = getSubTree(root->right, nums);
+	if (left || right || nums.find(root->val) != nums.end()) {
+		TreeNode *subroot = new TreeNode(root->val);
+		subroot->left = left;
+		subroot->right = right;
+		return subroot;
+	}
+
+	return NULL;
+}
+
 int _tmain(int argc, _TCHAR* argv[])
 {
 	TreeNode *root = new TreeNode(1);
@@ -126,6 +144,19 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	cout << "Print tree by level: " << endl;
 	printTreeByLevel(root);
+
+	TreeNode *subtree = NULL;
+	set<int> nums;
+	nums.insert(2);
+	nums.insert(7);
+	nums.insert(8);
+	cout << "Find subtree including 2, 7, 8" << endl;
+	printTreeByLevel(getSubTree(root, nums));
+
+	nums.erase(8);
+	nums.insert(3);
+	cout << "Find subtree including 2, 3, 7" << endl;
+	printTreeByLevel(getSubTree(root, nums));
 
 	return 0;
 }
