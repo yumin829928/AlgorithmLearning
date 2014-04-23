@@ -78,8 +78,7 @@ int getZeroSegmentsDFS(vector<vector<int>> &matrix) {
 	return count;
 }
 
-int _tmain(int argc, _TCHAR* argv[])
-{
+void zeroSegmentTest() {
 	int array2d[][5] = {
 		{0, 1, 1, 1, 1},
 		{0, 1, 0, 0, 0},
@@ -102,6 +101,102 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 		cout << endl;
 	}
+}
+
+bool findInMatrix(vector<vector<int>> &mat, int target, int rl, int ru, int cl, int cu) {
+	if (rl > ru || cl > cu) {
+		return false;
+	}
+
+	if (target < mat[rl][cl] || target > mat[ru][cu]) {
+		return false;
+	}
+
+	int rmid = (rl + ru) / 2;
+	int cmid = (cl + cu) / 2;
+	if (mat[rmid][cmid] == target) {
+		return true;
+	}
+	else if (mat[rmid][cmid] < target) {
+		return findInMatrix(mat, target, rmid + 1, ru, cl, cmid)
+			|| findInMatrix(mat, target, rl, ru, cmid + 1, cu);
+	}
+	else {
+		return findInMatrix(mat, target, rl, rmid - 1, cmid, cu)
+			|| findInMatrix(mat, target, rl, ru, cl, cmid - 1);
+	}
+}
+
+void findInMatrixTest() {
+	int rows = 4, cols = 5;
+	int array2d[][5] = {
+		{1,  8,  12, 20, 30},
+		{4,  9,  13, 25, 32},
+		{10, 11, 27, 28, 40},
+		{12, 18, 36, 41, 56}
+	};
+
+	vector<vector<int>> matrix(rows, vector<int>(cols));
+	for (int i = 0; i < rows; ++i) {
+		matrix[i] = vector<int>(array2d[i], array2d[i] + cols);
+	}
+	
+	cout << "Number 0  " << (findInMatrix(matrix,  0, 0, rows - 1, 0, cols - 1) ? "found" : "not found") << endl;
+	cout << "Number 1  " << (findInMatrix(matrix,  1, 0, rows - 1, 0, cols - 1) ? "found" : "not found") << endl;
+	cout << "Number 12 " << (findInMatrix(matrix, 12, 0, rows - 1, 0, cols - 1) ? "found" : "not found") << endl;
+	cout << "Number 33 " << (findInMatrix(matrix, 33, 0, rows - 1, 0, cols - 1) ? "found" : "not found") << endl;
+	cout << "Number 56 " << (findInMatrix(matrix, 56, 0, rows - 1, 0, cols - 1) ? "found" : "not found") << endl;
+}
+
+int countNegativeInMatrix(vector<vector<int>> &mat, int rl, int ru, int cl, int cu) {
+	if (rl > ru || cl > cu) {
+		return 0;
+	}
+
+	if (mat[rl][cl] >= 0) {
+		return 0;
+	}
+	if (mat[ru][cu] < 0) {
+		return (ru - rl + 1) * (cu - cl + 1);
+	}
+
+	int rmid = (rl + ru) / 2;
+	int cmid = (cl + cu) / 2;
+	if (mat[rmid][cmid] < 0) {
+		return countNegativeInMatrix(mat, rmid + 1, ru, cl, cmid) +
+			countNegativeInMatrix(mat, rl, ru, cmid + 1, cu) +
+			(rmid - rl + 1) * (cmid - cl + 1);
+	}
+	else {
+		return countNegativeInMatrix(mat, rl, rmid - 1, cmid, cu) +
+			countNegativeInMatrix(mat, rl, ru, cl, cmid - 1);
+	}
+}
+
+void countNegativeInMatrixTest() {
+	int rows = 4, cols = 5;
+	int array2d[][5] = {
+		{-10, -8, -7, 20, 30},
+		{-6,  -1, 13, 25, 32},
+		{-2,  11, 27, 28, 40},
+		{-1,  18, 36, 41, 56}
+	};
+
+	vector<vector<int>> matrix(rows, vector<int>(cols));
+	for (int i = 0; i < rows; ++i) {
+		matrix[i] = vector<int>(array2d[i], array2d[i] + cols);
+	}
+
+	cout << "The negative number is: " << countNegativeInMatrix(matrix, 0, rows - 1, 0, cols - 1) << endl;
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	zeroSegmentTest();
+
+	findInMatrixTest();
+
+	countNegativeInMatrixTest();
 
 	return 0;
 }

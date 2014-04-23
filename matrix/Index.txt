@@ -1,2 +1,4 @@
 Algorithms include:
 	1. Count zero segments
+	2. Find number in sorted Matrix
+	3. Count negative number in sorted Matrix
