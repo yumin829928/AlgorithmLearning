@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include <iostream>
 #include <vector>
+#include "CCIMatrix.h"
 using namespace std;
 
 // Wrong solution
@@ -197,6 +198,8 @@ int _tmain(int argc, _TCHAR* argv[])
 	findInMatrixTest();
 
 	countNegativeInMatrixTest();
+
+	CCIMatrix::getMaxSubSquareTest();
 
 	return 0;
 }

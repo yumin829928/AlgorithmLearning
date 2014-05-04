@@ -1,2 +1,4 @@
 Algorithms include:
 	1. Longest Increasing Subsequence O(n^2), O(nlgn)
+	2. Longest Common Sequence
+	3. Longest Common Substring
