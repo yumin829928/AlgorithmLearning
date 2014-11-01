@@ -1,0 +1,2 @@
+Algorithms include:
+	1. Shortest unique prefix, Trie Tree
